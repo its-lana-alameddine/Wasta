@@ -21,6 +21,62 @@ class Login extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
+    //login considering user type
+    /* 
+      Future<String> _login() async {
+  String email = emailController.text.trim();
+  String password = passwordController.text.trim();
+
+  if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter your email and password.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return null;
+  }
+
+  // Call the login function from AuthHelper
+  // This should now return the user type along with the token
+  final result = await AuthHelper.login(
+      LoginModel(email: email, password: password),
+  );
+
+  if (result != null) {
+      // Assuming result is a map with 'token' and 'userType' keys
+      String userType = result['userType'];
+      // Navigate to the appropriate screen based on user type
+      if (userType == 'company') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CompanyHomePage()),
+        );
+      } else if (userType == 'normalUser') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RegularHomePage()),
+        );
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Logged in successfully, Welcome!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      return userType;
+  } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login failed. Please recheck your credentials'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return null;
+  }
+  }
+    */
+
     void _login() async {
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
@@ -280,10 +336,8 @@ class Login extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                            'assets/images/facebook.png',
-                                            width: 23,
-                                            height: 23),
+                                        Image.asset('assets/images/google.png',
+                                            width: 23, height: 23),
                                         const SizedBox(width: 8),
                                         const Text(
                                           "Google",

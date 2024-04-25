@@ -1,5 +1,93 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+// import '../widgets/password_field.dart';
 import 'login.dart';
+// import '../widgets/phone_number_field.dart';
+import '../widgets/username_field.dart';
+import '../widgets/email_field.dart';
+
+class SkillsDropdown extends StatefulWidget {
+  const SkillsDropdown({super.key});
+
+  @override
+  _SkillsDropdownState createState() => _SkillsDropdownState();
+}
+
+class _SkillsDropdownState extends State<SkillsDropdown> {
+  final List<String> _skills = ['Flutter', 'Dart', 'Firebase', 'Figma', 'Git'];
+  final List<String> _selectedSkills = [];
+
+  void _toggleSkill(String skill) {
+    setState(() {
+      if (_selectedSkills.contains(skill)) {
+        _selectedSkills.remove(skill);
+      } else {
+        _selectedSkills.add(skill);
+      }
+    });
+  }
+
+  List<Widget> _buildSkillsTags() {
+    return _selectedSkills
+        .map((skill) => Chip(
+              label: Text(skill),
+              onDeleted: () {
+                _toggleSkill(skill);
+              },
+            ))
+        .toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Skills',
+          style: TextStyle(
+              fontSize: 18.0, color: Colors.black, fontFamily: 'DM Sans'),
+        ),
+        Wrap(
+          spacing: 8.0,
+          children: _buildSkillsTags(),
+        ),
+        Container(
+          height: 58.55,
+          width: 317,
+          decoration: BoxDecoration(
+            color: Colors.white, // Background color of the container
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 16.0), // Adjust padding as necessary
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              labelText: 'Select Your Skills',
+
+              filled: true,
+              fillColor:
+                  Colors.white, // Ensures the dropdown's fillColor is white
+            ),
+            items: _skills.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              if (newValue != null) {
+                _toggleSkill(newValue);
+              }
+            },
+            isExpanded: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
@@ -16,18 +104,6 @@ class Signup extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Login()),
-            ),
-            child: const Text(
-              'Login',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -92,7 +168,7 @@ class Signup extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Username',
+                          'UserName',
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.black,
@@ -101,76 +177,12 @@ class Signup extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 3.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        height: 58.55,
-                        width: 317,
-                        child: const Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                  fontFamily: 'DM Sans',
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Enter Your Username',
-                                  border: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      const UsernameField(),
                       const SizedBox(height: 3.0),
-                      // Password text
 
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Skills',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.black,
-                            fontFamily: 'DM Sans',
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 3.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        height: 58.55,
-                        width: 317,
-                        child: const Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                  fontFamily: 'DM Sans',
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your skills',
-                                  border: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 3.0),
+                      const SkillsDropdown(),
+                      const SizedBox(height: 10),
 
                       const Align(
                         alignment: Alignment.centerLeft,
@@ -184,35 +196,10 @@ class Signup extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 3.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        height: 58.55,
-                        width: 317,
-                        child: const Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                  fontFamily: 'DM Sans',
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your email',
-                                  border: InputBorder.none,
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 3.0),
+                      const EmailField(),
+                      const SizedBox(height: 10),
 
+                      // Password text
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -225,8 +212,8 @@ class Signup extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 5.0),
-                      // PasswordField(context: context),
-                      const SizedBox(height: 26.0),
+                      // const PasswordField(),
+                      const SizedBox(height: 15.0),
                       // Forgot Password text
 
                       Container(

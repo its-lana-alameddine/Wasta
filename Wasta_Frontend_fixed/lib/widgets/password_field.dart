@@ -27,7 +27,7 @@ class _PasswordFieldState extends State<PasswordField> {
           alignment: Alignment.centerRight,
           children: [
             TextField(
-              controller: widget.controller, // Pass the controller
+              controller: widget.controller,
               obscureText: !_isPasswordVisible,
               style: const TextStyle(
                 fontSize: 18.0,

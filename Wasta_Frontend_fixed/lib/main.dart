@@ -18,12 +18,5 @@ void main() {
       },
     ),
 
-    // home: const SafeArea(
-    //   child: SizedBox(
-    //     width: double.infinity, // Take the full width of the screen
-    //     height: double.infinity, // Take the full height of the screen
-    //     child: Logindraft2(),
-    //   ),
-    // ),
   );
 }

@@ -1,10 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:new_try/widgets/NavigationBar.dart';
+import '../widgets/search_bar.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _FilterScreenState createState() => _FilterScreenState();
 }
 
@@ -13,6 +16,7 @@ class _FilterScreenState extends State<FilterScreen> {
   String selectedSubCategory = 'UI/UX Design';
   String selectedLocation = 'Tripoli';
   String internshipType = 'full-time';
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,8 @@ class _FilterScreenState extends State<FilterScreen> {
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
+              begin: Alignment.topRight,
+              end: Alignment.centerLeft,
               colors: [
                 Color(0xFF130160),
                 Color(0xFF246BFD),
@@ -37,45 +42,52 @@ class _FilterScreenState extends State<FilterScreen> {
             children: <Widget>[
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Enter skills or preferences',
-                        hintStyle: const TextStyle(
-                            color: Colors.white), // This styles the hint text
-                        prefixIcon: const Icon(Icons.search,
-                            color: Colors.white), // This styles the icon
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                              color: Colors
-                                  .white), // This styles the normal border
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                              color: Colors
-                                  .white), // This styles the border when TextField is enabled
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                              color: Colors
-                                  .white), // This styles the border when TextField is focused
+                padding: const EdgeInsets.only(left: 25, right: 25, top: 60),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(19, 1, 96, 0.1),
+                    borderRadius: BorderRadius.circular(25.0),
+                    border: Border.all(
+                      color: Colors.white, // Set border color to white
+                      width: 2.0, // Set border width
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          showSearch(
+                            context: context,
+                            delegate: CustomSearchDelegate(),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
                         ),
                       ),
-                      style: const TextStyle(
-                          color: Colors
-                              .white), // This styles the text the user enters
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: ' Enter skills or preferences....',
+                            hintStyle: TextStyle(color: Colors.white),
+                          ),
+                          onTap: () {
+                            showSearch(
+                              context: context,
+                              delegate: CustomSearchDelegate(),
+                            );
+                          },
+                          textInputAction: TextInputAction.search,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 0.5),
+              const SizedBox(height: 50),
               Container(
                 decoration: BoxDecoration(
                   color: greyhex,
@@ -224,7 +236,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 150, // set width to 163
+                            width: 130, // set width to 163
                             height: 50, // set height to 50
                             child: ElevatedButton(
                               style: ButtonStyle(
@@ -249,7 +261,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: 150, // set width to 163
+                            width: 130, // set width to 163
                             height: 50, // set height to 50
                             child: ElevatedButton(
                               style: ButtonStyle(
@@ -283,34 +295,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        // Your custom color
-        type: BottomNavigationBarType
-            .fixed, // Use fixed when having more than three items
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/Pasted Graphic.png',
-                width: 22.83, height: 24.5),
-            label: ' ',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/Pasted Graphic 1.png',
-                width: 22.83, height: 24.5),
-            label: ' ',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/Pasted Graphic 2.png',
-                width: 22.83, height: 24.5),
-            label: ' ',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/Pasted Graphic 3.png',
-                width: 22.83, height: 24.5),
-            label: ' ',
-          ),
-          // Add your settings icon as necessary
-        ],
-      ),
+      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 }

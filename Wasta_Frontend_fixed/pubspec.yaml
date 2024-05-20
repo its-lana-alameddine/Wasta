@@ -43,6 +43,9 @@ dependencies:
   shared_preferences: ^2.2.2
   image_picker: ^1.0.7
   google_sign_in: ^6.2.1
+  flutter_spinkit: ^5.2.1
+  overlay_loader_with_app_icon: ^0.0.3
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -77,11 +80,27 @@ flutter:
     - assets/icons/Pasted Graphic 1.png
     - assets/icons/Pasted Graphic 2.png
     - assets/icons/Pasted Graphic 3.png
+    - assets/icons/project.png
+    - assets/icons/save.png
+    - assets/icons/img.png
+    - assets/icons/img_1.png
+    - assets/icons/img_2.png
+    - assets/icons/img_3.png
+    - assets/icons/img_4.png
+    
 
     - assets/images/facebook.png
     - assets/images/linkedIn.png
     - assets/images/google.png
-    
+    - assets/images/profile.jpg
+    - assets/images/tokopedia.jpeg
+    - assets/images/apliman.png
+    - assets/images/girl.png
+    - assets/images/headhunting.png
+    - assets/images/wasta_icon.png
+    - assets/images/img.png
+    - assets/images/discriptionphoto.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -106,7 +125,8 @@ fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
           weight: 400
 
-          
+    - family: DM Sans    
+      fonts: 
         - asset: assets/fonts/DMSans-VariableFont_opsz,wght.ttf
           weight: 400
           style: normal
